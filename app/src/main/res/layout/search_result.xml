@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:background="?attr/selectableItemBackground"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/paddingLarge">
@@ -28,7 +29,6 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/fontSizeLarge"
             tools:text="888 Vietnamese" />
-
 
         <TextView
             android:id="@+id/venueCategory"

@@ -35,6 +35,10 @@ public class SearchPresenter {
 
     }
 
+    public void searchQueryChanged(String searchQuery) {
+
+    }
+
     public void search(String query) {
         networking.getFoursquareService().venuesSearch(
                 FoursquareConfig.CLIENT_ID,
@@ -71,16 +75,16 @@ public class SearchPresenter {
         });
     }
 
-    private void setup() {
-        view.showMapButton(false);
-        view.showSearchResultsNullState();
-    }
-
     public void searchResultClicked(FoursquareVenue venue) {
 
     }
 
     public void searchResultFavoriteClicked(FoursquareVenue venue) {
 
+    }
+
+    private void setup() {
+        view.showMapButton(false);
+        view.showSearchResultsNullState();
     }
 }
