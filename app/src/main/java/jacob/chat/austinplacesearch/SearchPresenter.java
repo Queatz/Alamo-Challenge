@@ -40,6 +40,9 @@ public class SearchPresenter {
     }
 
     public void search(String query) {
+        view.hideKeyboard();
+        view.showLoading(true);
+
         networking.getFoursquareService().venuesSearch(
                 FoursquareConfig.CLIENT_ID,
                 FoursquareConfig.CLIENT_SECRET,
@@ -50,6 +53,8 @@ public class SearchPresenter {
                 SEARCH_RESULTS_LIMIT).enqueue(new Callback<FoursquareResponse>() {
             @Override
             public void onResponse(Call<FoursquareResponse> call, Response<FoursquareResponse> response) {
+                view.showLoading(false);
+
                 if (response.isSuccessful()) {
                     List<FoursquareVenue> venues = response.body().getResponse().getVenues();
                     Collections.sort(venues, (a, b) -> a.getLocation().getDistance() < b.getLocation().getDistance() ? -1 : 1);
@@ -69,6 +74,7 @@ public class SearchPresenter {
 
             @Override
             public void onFailure(Call<FoursquareResponse> call, Throwable t) {
+                view.showLoading(false);
                 view.showNetworkError();
                 view.showMapButton(false);
             }

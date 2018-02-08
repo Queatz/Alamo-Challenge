@@ -16,6 +16,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import jacob.chat.austinplacesearch.models.FoursquareVenue;
+import jacob.chat.austinplacesearch.util.ViewUtil;
 import jacob.chat.austinplacesearch.views.SearchResultsAdapter;
 
 public class SearchActivity extends AppCompatActivity {
@@ -27,6 +28,7 @@ public class SearchActivity extends AppCompatActivity {
     private RecyclerView searchResultsRecycler;
     private SearchResultsAdapter searchResultsAdapter;
     private EditText searchQuery;
+    private View loading;
 
     private SearchPresenter presenter;
 
@@ -41,6 +43,7 @@ public class SearchActivity extends AppCompatActivity {
         networkError = findViewById(R.id.networkError);
         searchResultsRecycler = findViewById(R.id.searchResultsRecycler);
         searchQuery = findViewById(R.id.searchQuery);
+        loading = findViewById(R.id.loading);
 
         searchResultsRecycler.setLayoutManager(new LinearLayoutManager(this));
 
@@ -128,5 +131,13 @@ public class SearchActivity extends AppCompatActivity {
         networkError.setVisibility(View.GONE);
         searchResultsNullState.setVisibility(View.GONE);
         searchResultsEmptyState.setVisibility(View.VISIBLE);
+    }
+
+    public void hideKeyboard() {
+        ViewUtil.showSoftInputKeyboard(searchQuery, false);
+    }
+
+    public void showLoading(boolean show) {
+        loading.setVisibility(show ? View.VISIBLE : View.GONE);
     }
 }
