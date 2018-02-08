@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/paddingLarge">
+
+    <ImageView
+        android:id="@+id/venueIcon"
+        android:layout_width="@dimen/largeIconSize"
+        android:layout_height="@dimen/largeIconSize"
+        android:contentDescription="@string/placeIcon"
+        android:src="@drawable/ic_local_cafe_black_24dp"
+        android:tint="@color/colorPrimary"  />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="@dimen/paddingLarge"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/venueName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/fontSizeLarge"
+            tools:text="888 Vietnamese" />
+
+
+        <TextView
+            android:id="@+id/venueCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            tools:text="Vietnamese Restaurant" />
+
+        <TextView
+            android:id="@+id/venueDistance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            tools:text="2 miles" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/venueFavorited"
+        android:layout_width="@dimen/smallIconSize"
+        android:layout_height="@dimen/smallIconSize"
+        android:contentDescription="@string/placeIcon"
+        android:src="@drawable/ic_star_black_24dp"
+        android:scaleType="centerInside"
+        android:tint="@color/placeholder" />
+
+</LinearLayout>

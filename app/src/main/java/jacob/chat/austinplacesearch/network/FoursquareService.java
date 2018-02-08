@@ -15,6 +15,7 @@ public interface FoursquareService {
                                           @Query("client_secret") String clientSecret,
                                           @Query("v") String version,
                                           @Query("near") String near,
+                                          @Query("ll") String latLng,
                                           @Query("query") String query,
                                           @Query("limit") Integer limit);
 }

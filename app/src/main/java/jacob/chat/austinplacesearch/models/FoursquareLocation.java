@@ -8,6 +8,7 @@ public class FoursquareLocation {
     private String address;
     private double lat;
     private double lng;
+    private double distance;
 
     public String getAddress() {
         return address;
@@ -33,6 +34,15 @@ public class FoursquareLocation {
 
     public FoursquareLocation setLng(double lng) {
         this.lng = lng;
+        return this;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
+    public FoursquareLocation setDistance(double distance) {
+        this.distance = distance;
         return this;
     }
 }

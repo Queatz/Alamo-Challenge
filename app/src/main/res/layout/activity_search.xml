@@ -95,7 +95,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/searchResultsRecycler"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:paddingTop="84dp"
+            android:clipToPadding="false"/>
 
     </android.support.constraint.ConstraintLayout>
 
@@ -108,5 +110,17 @@
         android:src="@drawable/ic_map_black_24dp"
         android:tint="@android:color/white"
         app:fabSize="normal" />
+
+    <EditText
+        android:id="@+id/searchQuery"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/paddingLarge"
+        android:background="@drawable/rounded_white"
+        android:padding="@dimen/paddingLarge"
+        android:elevation="12dp"
+        android:maxLines="1"
+        android:imeOptions="actionSearch"
+        android:hint="@string/searchForCoolPlaces"/>
 
 </FrameLayout>

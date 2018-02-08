@@ -3,4 +3,13 @@
     <string name="doSomething">Do something cool today</string>
     <string name="nothingFound">I couldn\'t find that</string>
     <string name="networkError">I couldn\'t reach the internets</string>
+    <string name="placeIcon">Place icon</string>
+
+    <string name="closeBy">Less than a mile away</string>
+    <string name="searchForCoolPlaces">Search for cool places…</string>
+
+    <plurals name="distanceInMiles">
+        <item quantity="one">%1$s mile away</item>
+        <item quantity="other">%1$s miles away</item>
+    </plurals>
 </resources>

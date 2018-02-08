@@ -1,5 +1,6 @@
 package jacob.chat.austinplacesearch;
 
+import java.util.Collections;
 import java.util.List;
 
 import jacob.chat.austinplacesearch.models.FoursquareResponse;
@@ -18,6 +19,7 @@ public class SearchPresenter {
 
     private static final int SEARCH_RESULTS_LIMIT = 20;
     private static final String DEFAULT_SEARCH_LOCATION = "Austin,+TX";
+    private static final String DEFAULT_SEARCH_LAT_LNG = "30.2672,-97.7431";
 
     private Networking networking;
 
@@ -26,8 +28,7 @@ public class SearchPresenter {
     public SearchPresenter(SearchActivity view) {
         this.view = view;
         networking = new Networking();
-
-        this.view.showSearchResultsNullState();
+        setup();
     }
 
     public void showMapButtonClicked() {
@@ -40,27 +41,46 @@ public class SearchPresenter {
                 FoursquareConfig.CLIENT_SECRET,
                 FoursquareConfig.API_VERSION,
                 DEFAULT_SEARCH_LOCATION,
+                DEFAULT_SEARCH_LAT_LNG,
                 query,
                 SEARCH_RESULTS_LIMIT).enqueue(new Callback<FoursquareResponse>() {
             @Override
             public void onResponse(Call<FoursquareResponse> call, Response<FoursquareResponse> response) {
                 if (response.isSuccessful()) {
                     List<FoursquareVenue> venues = response.body().getResponse().getVenues();
+                    Collections.sort(venues, (a, b) -> a.getLocation().getDistance() < b.getLocation().getDistance() ? -1 : 1);
 
                     if (venues.isEmpty()) {
                         view.showSearchResultsEmpty();
+                        view.showMapButton(false);
                     } else {
                         view.showSearchResults(venues);
+                        view.showMapButton(true);
                     }
                 } else {
                     view.showNetworkError();
+                    view.showMapButton(false);
                 }
             }
 
             @Override
             public void onFailure(Call<FoursquareResponse> call, Throwable t) {
                 view.showNetworkError();
+                view.showMapButton(false);
             }
         });
+    }
+
+    private void setup() {
+        view.showMapButton(false);
+        view.showSearchResultsNullState();
+    }
+
+    public void searchResultClicked(FoursquareVenue venue) {
+
+    }
+
+    public void searchResultFavoriteClicked(FoursquareVenue venue) {
+
     }
 }
