@@ -23,7 +23,7 @@ public class SearchPresenter {
 
     private Networking networking;
 
-    private SearchActivity view;
+    private final SearchActivity view;
 
     public SearchPresenter(SearchActivity view) {
         this.view = view;
@@ -32,7 +32,7 @@ public class SearchPresenter {
     }
 
     public void showMapButtonClicked() {
-
+        view.showMap();
     }
 
     public void searchQueryChanged(String searchQuery) {

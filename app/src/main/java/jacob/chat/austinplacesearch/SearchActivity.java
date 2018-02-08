@@ -1,5 +1,6 @@
 package jacob.chat.austinplacesearch;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jacob.chat.austinplacesearch.models.FoursquareVenue;
@@ -139,5 +141,13 @@ public class SearchActivity extends AppCompatActivity {
 
     public void showLoading(boolean show) {
         loading.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
+
+    public void showMap() {
+        Intent intent = new Intent(this, MapsActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putStringArrayList(MapsActivity.EXTRA_PLACES, new ArrayList<>());
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
