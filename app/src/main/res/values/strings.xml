@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Austin Place Search</string>
-
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="doSomething">Do something cool today</string>
+    <string name="nothingFound">I couldn\'t find that</string>
+    <string name="networkError">I couldn\'t reach the internets</string>
 </resources>

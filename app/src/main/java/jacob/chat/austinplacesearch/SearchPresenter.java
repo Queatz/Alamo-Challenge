@@ -1,6 +1,9 @@
 package jacob.chat.austinplacesearch;
 
+import java.util.List;
+
 import jacob.chat.austinplacesearch.models.FoursquareResponse;
+import jacob.chat.austinplacesearch.models.FoursquareVenue;
 import jacob.chat.austinplacesearch.network.FoursquareConfig;
 import jacob.chat.austinplacesearch.network.Networking;
 import retrofit2.Call;
@@ -23,6 +26,8 @@ public class SearchPresenter {
     public SearchPresenter(SearchActivity view) {
         this.view = view;
         networking = new Networking();
+
+        this.view.showSearchResultsNullState();
     }
 
     public void showMapButtonClicked() {
@@ -40,7 +45,13 @@ public class SearchPresenter {
             @Override
             public void onResponse(Call<FoursquareResponse> call, Response<FoursquareResponse> response) {
                 if (response.isSuccessful()) {
-                    view.updateSearchResults(response.body().getResponse().getVenues());
+                    List<FoursquareVenue> venues = response.body().getResponse().getVenues();
+
+                    if (venues.isEmpty()) {
+                        view.showSearchResultsEmpty();
+                    } else {
+                        view.showSearchResults(venues);
+                    }
                 } else {
                     view.showNetworkError();
                 }

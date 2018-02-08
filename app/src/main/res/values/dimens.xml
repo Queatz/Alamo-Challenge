@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="paddingLarge">16dp</dimen>
+    <dimen name="largeIconSize">64dp</dimen>
+    <dimen name="fontSizeLarge">22sp</dimen>
 </resources>
