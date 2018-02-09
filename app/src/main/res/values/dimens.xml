@@ -4,6 +4,7 @@
     <dimen name="paddingSmall">8dp</dimen>
     <dimen name="largeIconSize">64dp</dimen>
     <dimen name="smallIconSize">48dp</dimen>
+    <dimen name="fontSizeSmall">14sp</dimen>
     <dimen name="fontSizeLarge">22sp</dimen>
-    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="appBarHeight">180dp</dimen>
 </resources>

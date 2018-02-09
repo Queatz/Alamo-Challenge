@@ -19,4 +19,6 @@
     <string name="addedToFavorites">Added to favorites</string>
     <string name="removedFromFavorites">Removed from favorites</string>
     <string name="undo">Undo</string>
+    <string name="about">About</string>
+    <string name="website">Website</string>
 </resources>

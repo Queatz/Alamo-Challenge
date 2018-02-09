@@ -11,6 +11,7 @@ public class FoursquareVenue {
     private String name;
     private String url;
     private FoursquareLocation location;
+    private FoursquareContact contact;
     private List<FoursquareCategory> categories;
 
     public String getId() {
@@ -55,6 +56,15 @@ public class FoursquareVenue {
 
     public FoursquareVenue setCategories(List<FoursquareCategory> categories) {
         this.categories = categories;
+        return this;
+    }
+
+    public FoursquareContact getContact() {
+        return contact;
+    }
+
+    public FoursquareVenue setContact(FoursquareContact contact) {
+        this.contact = contact;
         return this;
     }
 }

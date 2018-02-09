@@ -6,4 +6,5 @@
     <color name="placeholder">#e0e0e0</color>
     <color name="shade">#ccffffff</color>
     <color name="shadow">#80000000</color>
+    <color name="link">#00aaff</color>
 </resources>
