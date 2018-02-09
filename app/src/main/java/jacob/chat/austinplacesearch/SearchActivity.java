@@ -135,6 +135,13 @@ public class SearchActivity extends AppCompatActivity {
         searchResultsEmptyState.setVisibility(View.VISIBLE);
     }
 
+    public void showKeyboard() {
+        runOnUiThread(() -> {
+            searchQuery.requestFocus();
+            ViewUtil.showSoftInputKeyboard(searchQuery, true);
+        });
+    }
+
     public void hideKeyboard() {
         ViewUtil.showSoftInputKeyboard(searchQuery, false);
     }
@@ -147,6 +154,14 @@ public class SearchActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MapsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putStringArrayList(MapsActivity.EXTRA_PLACES, new ArrayList<>());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    public void showPlace(FoursquareVenue venue) {
+        Intent intent = new Intent(this, PlaceActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(PlaceActivity.EXTRA_PLACE, venue.getId());
         intent.putExtras(bundle);
         startActivity(intent);
     }

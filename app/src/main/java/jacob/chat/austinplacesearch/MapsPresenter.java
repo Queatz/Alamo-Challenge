@@ -11,4 +11,8 @@ public class MapsPresenter {
     public MapsPresenter(MapsActivity view) {
         this.view = view;
     }
+
+    public void backPressed() {
+        view.goBack();
+    }
 }

@@ -3,6 +3,7 @@ package jacob.chat.austinplacesearch;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,6 +18,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap googleMap;
 
+    private MapsPresenter presenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +28,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        findViewById(R.id.backButton).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.backPressed();
+            }
+        });
+
         Intent intent = getIntent();
+
+        presenter = new MapsPresenter(this);
     }
 
     @Override
@@ -36,5 +48,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng sydney = new LatLng(-34, 151);
         this.googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public void goBack() {
+        onBackPressed();
     }
 }

@@ -82,7 +82,7 @@ public class SearchPresenter {
     }
 
     public void searchResultClicked(FoursquareVenue venue) {
-
+        view.showPlace(venue);
     }
 
     public void searchResultFavoriteClicked(FoursquareVenue venue) {
@@ -92,5 +92,6 @@ public class SearchPresenter {
     private void setup() {
         view.showMapButton(false);
         view.showSearchResultsNullState();
+        view.showKeyboard();
     }
 }
