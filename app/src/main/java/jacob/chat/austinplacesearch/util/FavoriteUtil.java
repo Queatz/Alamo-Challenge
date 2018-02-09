@@ -17,6 +17,7 @@ public class FavoriteUtil {
 
     private static final String PREFERENCE_FAVORITES = "favorites";
     private static final String PREFERENCES = "austinplacesearch";
+
     private static Set<String> favorites;
     private static SharedPreferences preferences;
     private static PublishSubject<FavoriteChange> onFavoriteChange = PublishSubject.create();

@@ -1,5 +1,7 @@
 package jacob.chat.austinplacesearch;
 
+import com.google.gson.Gson;
+
 import jacob.chat.austinplacesearch.models.FoursquareVenue;
 
 /**
@@ -7,6 +9,8 @@ import jacob.chat.austinplacesearch.models.FoursquareVenue;
  */
 
 public class MapsPresenter {
+
+    private final Gson gson = new Gson();
 
     private final MapsActivity view;
 
@@ -19,6 +23,6 @@ public class MapsPresenter {
     }
 
     public void markerInfoWindowClicked(FoursquareVenue place) {
-        view.showPlace(place);
+        view.showPlace(gson.toJson(place));
     }
 }

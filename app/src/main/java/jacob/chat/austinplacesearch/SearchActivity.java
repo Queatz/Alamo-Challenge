@@ -158,10 +158,10 @@ public class SearchActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void showPlace(FoursquareVenue venue) {
+    public void showPlace(String venue) {
         Intent intent = new Intent(this, PlaceActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putString(PlaceActivity.EXTRA_PLACE, venue.getId());
+        bundle.putString(PlaceActivity.EXTRA_PLACE, venue);
         intent.putExtras(bundle);
         startActivity(intent);
     }

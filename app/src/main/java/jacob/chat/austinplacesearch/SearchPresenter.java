@@ -95,7 +95,7 @@ public class SearchPresenter {
     }
 
     public void searchResultClicked(FoursquareVenue venue) {
-        view.showPlace(venue);
+        view.showPlace(gson.toJson(venue));
     }
 
     public void searchResultFavoriteClicked(FoursquareVenue venue) {
