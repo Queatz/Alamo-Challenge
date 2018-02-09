@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import jacob.chat.austinplacesearch.models.FoursquareVenue;
+import jacob.chat.austinplacesearch.util.FavoriteUtil;
 import jacob.chat.austinplacesearch.util.ViewUtil;
 import jacob.chat.austinplacesearch.views.SearchResultsAdapter;
 
@@ -163,5 +164,9 @@ public class SearchActivity extends AppCompatActivity {
         bundle.putString(PlaceActivity.EXTRA_PLACE, venue.getId());
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    public void toggleFavorited(FoursquareVenue venue) {
+        FavoriteUtil.togglePlaceFavorited(this, venue.getId());
     }
 }

@@ -99,7 +99,7 @@ public class SearchPresenter {
     }
 
     public void searchResultFavoriteClicked(FoursquareVenue venue) {
-
+        view.toggleFavorited(venue);
     }
 
     private void setup() {

@@ -1,6 +1,7 @@
 package jacob.chat.austinplacesearch.views;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,11 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import io.reactivex.disposables.Disposable;
 import jacob.chat.austinplacesearch.R;
 import jacob.chat.austinplacesearch.models.FoursquareCategory;
 import jacob.chat.austinplacesearch.models.FoursquareVenue;
+import jacob.chat.austinplacesearch.util.FavoriteUtil;
 import jacob.chat.austinplacesearch.util.ViewUtil;
 
 /**
@@ -41,6 +44,11 @@ public class SearchResultsAdapter extends RecyclerView.Adapter {
                 .inflate(R.layout.search_result, parent, false);
 
         return new SearchResultViewHolder(view);
+    }
+
+    @Override
+    public void onViewRecycled(RecyclerView.ViewHolder holder) {
+        ((SearchResultViewHolder) holder).disposable.dispose();
     }
 
     @Override
@@ -81,6 +89,29 @@ public class SearchResultsAdapter extends RecyclerView.Adapter {
                 onItemClickListener.onItemFavoriteClick(venue);
             }
         });
+
+        updateFavorited(context, searchResult, FavoriteUtil.isPlaceFavorited(context, venue.getId()));
+
+        if (searchResult.disposable != null) {
+            searchResult.disposable.dispose();
+        }
+
+        searchResult.disposable = FavoriteUtil.onFavoriteChange().subscribe(change -> {
+            if (change.getPlaceId().equals(venue.getId())) {
+                updateFavorited(context, searchResult, change.isFavorited());
+            }
+        });
+    }
+
+    private void updateFavorited(Context context, SearchResultViewHolder searchResult, boolean favorited) {
+        ColorStateList color;
+        if (favorited) {
+            color = ColorStateList.valueOf(context.getResources().getColor(R.color.colorAccent));
+        } else {
+            color = ColorStateList.valueOf(context.getResources().getColor(R.color.placeholder));
+        }
+
+        searchResult.venueFavorited.setImageTintList(color);
     }
 
     @Override
@@ -95,6 +126,7 @@ public class SearchResultsAdapter extends RecyclerView.Adapter {
         TextView venueCategory;
         TextView venueDistance;
         ImageView venueFavorited;
+        Disposable disposable;
 
         SearchResultViewHolder(View itemView) {
             super(itemView);
