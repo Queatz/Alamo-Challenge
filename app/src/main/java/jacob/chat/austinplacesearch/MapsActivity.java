@@ -10,6 +10,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -61,14 +63,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(DEFAULT_LATLNG));
 
         if (places != null) {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (FoursquareVenue place : places) {
-                this.googleMap.addMarker(new MarkerOptions().position(DEFAULT_LATLNG).title(place.getName()))
-                    .setTag(place);
+                Marker marker = this.googleMap.addMarker(new MarkerOptions()
+                        .position(latLngOf(place))
+                        .title(place.getName()));
+                marker.setTag(place);
+                builder.include(marker.getPosition());
             }
+
+            this.googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(builder.build(), 64));
         }
 
         this.googleMap.setOnInfoWindowClickListener(marker ->
                 presenter.markerInfoWindowClicked((FoursquareVenue) marker.getTag()));
+    }
+
+    private LatLng latLngOf(FoursquareVenue place) {
+        return new LatLng(place.getLocation().getLat(), place.getLocation().getLng());
     }
 
     public void goBack() {
