@@ -43,20 +43,23 @@ public class SearchPresenter {
     }
 
     public void searchQueryChanged(String searchQuery) {
-
+        doSearch(searchQuery);
     }
 
-    public void search(String query) {
+    public void search(String searchQuery) {
         view.hideKeyboard();
         view.showLoading(true);
+        doSearch(searchQuery);
+    }
 
+    private void doSearch(String searchQuery) {
         networking.getFoursquareService().venuesSearch(
                 FoursquareConfig.CLIENT_ID,
                 FoursquareConfig.CLIENT_SECRET,
                 FoursquareConfig.API_VERSION,
                 DEFAULT_SEARCH_LOCATION,
                 DEFAULT_SEARCH_LAT_LNG,
-                query,
+                searchQuery,
                 SEARCH_RESULTS_LIMIT).enqueue(new Callback<FoursquareResponse>() {
 
             @Override
