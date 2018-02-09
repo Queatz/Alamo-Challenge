@@ -81,26 +81,18 @@ public class PlaceActivity extends AppCompatActivity {
                 phone.setVisibility(View.GONE);
             } else {
                 phone.setText(place.getContact().getFormattedPhone());
-                phone.setOnClickListener(view -> openPhone(place.getContact().getFormattedPhone()));
+                phone.setOnClickListener(view -> presenter.phoneClicked());
             }
 
             if (place.getUrl() == null) {
                 website.setVisibility(View.GONE);
             } else {
                 website.setText(place.getUrl());
-                website.setOnClickListener(view -> openUrl(place.getUrl()));
+                website.setOnClickListener(view -> presenter.websiteClicked());
             }
 
             venueFavorited = findViewById(R.id.venueFavorited);
-            venueFavorited.setOnClickListener(view -> {
-                FavoriteUtil.togglePlaceFavorited(this, place.getId());
-                boolean favorited = FavoriteUtil.isPlaceFavorited(this, place.getId());
-                updateFavorited(favorited);
-
-                String message = getString(favorited ? R.string.addedToFavorites : R.string.removedFromFavorites);
-                Snackbar.make(view, message, Snackbar.LENGTH_LONG).setAction(getString(R.string.undo),
-                        snackbar -> venueFavorited.callOnClick()).show();
-            });
+            venueFavorited.setOnClickListener(view -> presenter.clickedFavoritedButton());
             updateFavorited(FavoriteUtil.isPlaceFavorited(this, place.getId()));
 
             Picasso.with(this).load(UrlUtil.getStaticMapUrl(
@@ -112,14 +104,15 @@ public class PlaceActivity extends AppCompatActivity {
         }
 
         presenter = new PlacePresenter(this);
+        presenter.setPlace(place);
     }
 
-    private void openPhone(String phoneNumber) {
+    public void openPhone(String phoneNumber) {
         Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phoneNumber, null));
         startActivity(intent);
     }
 
-    private void openUrl(String url) {
+    public void openUrl(String url) {
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(url));
         startActivity(intent);
@@ -128,5 +121,15 @@ public class PlaceActivity extends AppCompatActivity {
     private void updateFavorited(boolean favorited) {
         int color = getResources().getColor(favorited ? R.color.colorAccent : R.color.placeholder);
         venueFavorited.setBackgroundTintList(ColorStateList.valueOf(color));
+    }
+
+    public void toggleFavorite() {
+            FavoriteUtil.togglePlaceFavorited(this, place.getId());
+            boolean favorited = FavoriteUtil.isPlaceFavorited(this, place.getId());
+            updateFavorited(favorited);
+
+            String message = getString(favorited ? R.string.addedToFavorites : R.string.removedFromFavorites);
+            Snackbar.make(venueFavorited, message, Snackbar.LENGTH_LONG).setAction(getString(R.string.undo),
+                    snackbar -> presenter.undoToggleFavoriteClicked()).show();
     }
 }
