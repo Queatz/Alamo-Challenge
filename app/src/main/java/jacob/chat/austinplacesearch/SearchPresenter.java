@@ -29,6 +29,7 @@ public class SearchPresenter {
     private final SearchActivity view;
 
     public List<FoursquareVenue> places;
+    private Call<FoursquareResponse> activeSearch;
 
     public SearchPresenter(SearchActivity view) {
         this.view = view;
@@ -53,17 +54,23 @@ public class SearchPresenter {
     }
 
     private void doSearch(String searchQuery) {
-        networking.getFoursquareService().venuesSearch(
+        if (activeSearch != null && !activeSearch.isCanceled()) {
+            activeSearch.cancel();
+        }
+
+        activeSearch = networking.getFoursquareService().venuesSearch(
                 FoursquareConfig.CLIENT_ID,
                 FoursquareConfig.CLIENT_SECRET,
                 FoursquareConfig.API_VERSION,
                 DEFAULT_SEARCH_LOCATION,
                 DEFAULT_SEARCH_LAT_LNG,
                 searchQuery,
-                SEARCH_RESULTS_LIMIT).enqueue(new Callback<FoursquareResponse>() {
+                SEARCH_RESULTS_LIMIT);
 
+        activeSearch.enqueue(new Callback<FoursquareResponse>() {
             @Override
             public void onResponse(Call<FoursquareResponse> call, Response<FoursquareResponse> response) {
+                activeSearch = null;
                 view.showLoading(false);
 
                 if (response.isSuccessful()) {
@@ -87,6 +94,11 @@ public class SearchPresenter {
 
             @Override
             public void onFailure(Call<FoursquareResponse> call, Throwable t) {
+                if (call.isCanceled()) {
+                    return;
+                }
+
+                activeSearch = null;
                 view.showLoading(false);
                 view.showNetworkError();
                 view.showMapButton(false);

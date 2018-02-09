@@ -9,6 +9,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -63,12 +65,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         this.googleMap.moveCamera(CameraUpdateFactory.newLatLng(DEFAULT_LATLNG));
 
         if (places != null) {
+            BitmapDescriptor pin = BitmapDescriptorFactory.fromResource(R.drawable.pin);
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
             for (FoursquareVenue place : places) {
                 Marker marker = this.googleMap.addMarker(new MarkerOptions()
                         .position(latLngOf(place))
                         .title(place.getName()));
                 marker.setTag(place);
+                marker.setIcon(pin);
                 builder.include(marker.getPosition());
             }
 
